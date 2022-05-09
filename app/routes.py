@@ -28,3 +28,22 @@ def register():
         flash('Your Account Has been Created! You are now able to login  in', 'success')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
+
+@app.route('/authentification/login', methods=['POST', 'GET'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    form = Login()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user and bcrypt.check_password_hash(user.password, form.password.data):
+            login_user(user, remember=form.remember.data)
+            flash(f'Welcome {user.username.title()} !! ', 'success')
+            # args is a dict
+            # get returns none if the next key does not exist
+            next_page = request.args.get('next')
+            return redirect(next_page) if next_page else redirect(url_for('home'))
+        else:
+            flash('Login unsuccessful. Please check email and password', 'danger')
+
+    return render_template('login.html', title='Login', form=form)
