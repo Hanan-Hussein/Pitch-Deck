@@ -53,3 +53,20 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('home'))
+
+@app.route('/account')
+@login_required
+def account():
+    return render_template('account.html')
+
+@app.route('/create',methods=['POST', 'GET'])
+@login_required
+def create():
+    form=PitchForm()
+    if form.validate_on_submit():
+        pitch = Pitch(title=form.title.data,content=form.content.data,user_id=current_user.id)
+        db.session.add(pitch)
+        db.session.commit()
+        flash('Your pitch was successfully added')
+        return redirect(url_for('home'))
+    return render_template('create.html',form=form,title='New Pitch')

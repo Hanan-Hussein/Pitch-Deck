@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+{% block body %}
+{% from 'bootstrap5/form.html' import render_form %}
+<div class="container h-50">
+    <div class="container-fluid row p-5">
+        <div class="col-md-4">
+            <img src="{{image_file}}"  class="img-thumbnail img-fluid border border-white" alt="Profile picture" >
+        </div>
+        <div class="col-md-8 mx-auto mt-auto mb-auto  lead">
+            <p>Username--: {{ current_user.username.title() }}</p>
+            
+            <p>Email-------: {{ current_user.email }}</p>
+           
+            <a data-bs-toggle="collapse" href="#coll" class="text-decoration-none text-muted" >Update Info</a>
+
+        </div>
+    </div>
+    <div class="container-fluid collapse h-25" id="coll">
+        {{render_form(form)}}
+    </div>
+</div>
+{%endblock%}
