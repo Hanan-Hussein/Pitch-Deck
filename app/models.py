@@ -33,6 +33,10 @@ class Pitch(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String, nullable=False)
     content = db.Column(db.String, nullable=False)
+    likes= db.Column(db.Integer, nullable=False,default=0)
+    dislikes= db.Column(db.Integer, nullable=False,default=0)
+    comments= db.Column(db.String, default='')
+    category= db.Column(db.String,nullable=False)
     date_created = db.Column(db.Date, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
