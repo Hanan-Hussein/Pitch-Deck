@@ -1,0 +1,67 @@
+{% extends 'layout.html' %}
+{% block body %}
+<div class="container">
+      
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+  
+
+      <div class="col ">
+        <div class="card">
+            <div class="row  p-2">
+                <div class="col-md-8"></div>
+              <div class="col-md-2">
+                  <img src="{{url_for('static', filename='/profiles/'+pitch.author.profile)}}" class="img-thumbnail img-fluid border border-white" alt="Profile picture" >
+              </div>
+              <div class="col-md-2 mx-auto mt-auto mb-auto text-muted">
+                  <small>{{pitch.author.username}}</small>
+                  <br>
+                  <small>{{pitch.date_created}}</small>
+              </div>
+            </div>
+          <div class="card-body">
+            <h5 class="card-title">{{pitch.title}}</h5>
+            <p class="card-text lead">{{pitch.content}}</p>
+            <div class="d-flex justify-content-around">
+              <img src="{{url_for('static',filename='/assets/like.svg')}}" alt="">{{pitch.likes}}
+              <img src="{{url_for('static',filename='/assets/unlike.svg')}}"  alt="">{{pitch.dislikes}}
+              
+              <a  data-bs-toggle="collapse" href="#comments{{pitch.id}}" class="lead text-decoration-none">
+                <img src="{{url_for('static',filename='/assets/comment.svg')}}" height="30" alt=""> 
+              </a>
+               
+            </div>
+            <div id="comments{{pitch.id}}">
+              <!-- Comments display  -->
+              <div class=" comments">
+                <!-- Printing out the comments -->
+              
+              </div>
+              <!-- Comments Form -->
+              <div class="m-3">
+                <form action="" method="post">
+                  {{form.hidden_tag()}}
+                  <div class="form-group">
+                          {% if form.content.errors %}
+                          {{form.content(class='form-control is-invalid')}}
+                              {% for error in form.email.errors %}
+                                  <div class="invalid-feedback">
+                                      {{error}}
+                                  </div>
+                              {% endfor %}
+                      {% else %}
+                          {{form.content(class='form-control')}}
+                      {% endif %}
+                  </div>
+                  <div class="text-center mt-3">
+                    {{form.submit(class='btn btn-outline')}}
+                </div>
+                <!-- End of comment form -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+     
+</div>
+{% endblock %}
