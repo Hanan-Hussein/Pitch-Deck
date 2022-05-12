@@ -1,7 +1,10 @@
 # Pitch-Deck
 ### By Hanan Hussein
 ### [Live Site](https://news-api-reel.herokuapp.com) 
-<img width="1440" alt="Screenshot 2022-05-03 at 21 54 16" src="https://user-images.githubusercontent.com/36597096/166555472-d9f60297-4139-4472-aaf6-b8be5c76e6c8.png">
+<img width="1440" alt="Screenshot 2022-05-12 at 11 58 44" src="https://user-images.githubusercontent.com/36597096/168045426-85711d92-2f92-4a57-a206-23cf8269ea1c.png">
+<img width="1440" alt="Screenshot 2022-05-12 at 11 59 02" src="https://user-images.githubusercontent.com/36597096/168045448-87998918-f8e8-41af-8c51-22c642125ee6.png">
+
+
 
 ## Description 
 In life, you only have 60 seconds to impress someone. 1 minute can make or break you.This application will make you use your 60 seconds well, A user can create a pitch, upvote or down vote a pitch and leave a comment in a pitch
