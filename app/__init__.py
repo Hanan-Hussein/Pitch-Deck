@@ -4,26 +4,40 @@ from flask_bootstrap import Bootstrap5
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
+from app.config import config_options
+from flask_migrate import Migrate
+bootstrap = Bootstrap5()
+migrate = Migrate()
 
-app = Flask(__name__)
-bootstrap = Bootstrap5(app)
-app.config['SECRET_KEY'] = '37183a998ba83a7b481bd3f6e0f2b29'
-# the three /// are the relative path from the current file
-# site.db file should get created in the project directory along side py module
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-app.config['MAIL_SERVER']='smtp.gmail.com'
-app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = ''
-app.config['MAIL_PASSWORD'] = ''
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True
-
-
-db = SQLAlchemy(app)
-mail=Mail(app)
-bcrypt = Bcrypt(app)
-login_manager = LoginManager(app)
-login_manager.login_view = 'login'
+db = SQLAlchemy()
+mail=Mail()
+bcrypt = Bcrypt()
+login_manager = LoginManager()
+login_manager.login_view = 'users.login'
 
 login_manager.login_message_category = 'info'
-from . import routes
+
+
+def create_app(config_name):
+
+    app = Flask(__name__)
+
+    app.config.from_object(config_options[config_name])
+    # app.config.from_object(Config)
+    db.init_app(app)
+    mail.init_app(app)
+    migrate.init_app(app,db)
+    
+    bcrypt.init_app(app)
+    login_manager.init_app(app)
+    bootstrap.init_app(app)
+    from app.users.routes import users
+    from app.pitch.routes import posts
+    from app.main.routes import main
+
+    app.register_blueprint(main)
+    app.register_blueprint(users)
+    app.register_blueprint(posts)
+
+    return app
+

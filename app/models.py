@@ -1,7 +1,6 @@
 from datetime import datetime
 from flask_login import UserMixin
 from . import db, login_manager
-
 # The login in the init method
 
 
@@ -20,6 +19,8 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String, nullable=False)
     profile = db.Column(db.String, nullable=False, default='anon.png')
     pitches = db.relationship('Pitch', backref='author', lazy=True)
+    otp = db.relationship('Otp', backref='user', lazy=True)
+
 
     def __repr__(self):
         return f"id: {self.id} , username: {self.username} "
@@ -42,3 +43,12 @@ class Pitch(db.Model):
 
     def __repr__(self):
         return f"id: {self.id} , title: {self.title}"
+
+class Otp(db.Model):
+    
+    """
+    Otp table holds the otp sent to user 
+    """
+    id = db.Column(db.Integer, primary_key=True)
+    otp=db.Column(db.String,nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)

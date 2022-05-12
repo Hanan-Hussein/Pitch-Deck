@@ -33,8 +33,8 @@
               <h5 class="card-title">{{pitch.title}}</h5>
               <p class="card-text lead">{{pitch.content}}</p>
               <div class="d-flex justify-content-around">
-                <a href="{{url_for('likes',pitchid=pitch.id)}}"><img src="{{url_for('static',filename='/assets/like.svg')}}" alt=""></a>{{pitch.likes}}
-                <a href="{{url_for('dislikes',pitchid=pitch.id)}}"><img src="{{url_for('static',filename='/assets/unlike.svg')}}"  alt=""></a>{{pitch.dislikes}}
+                <a href="{{url_for('posts.likes',pitchid=pitch.id)}}"><img src="{{url_for('static',filename='/assets/like.svg')}}" alt=""></a>{{pitch.likes}}
+                <a href="{{url_for('posts.dislikes',pitchid=pitch.id)}}"><img src="{{url_for('static',filename='/assets/unlike.svg')}}"  alt=""></a>{{pitch.dislikes}}
                 <a  data-bs-toggle="collapse" href="#comments{{pitch.id}}" class="lead text-decoration-none">
                   <img src="{{url_for('static',filename='/assets/comment.svg')}}" height="30" alt=""> 
                 </a>
@@ -52,7 +52,7 @@
               {% endfor %}
             </div>
             {% endif %}
-          <a href="{{url_for('comments',id=pitch.id)}}">ADD</a>
+          <a href="{{url_for('posts.comments',id=pitch.id)}}">ADD</a>
                 </div>
               </div>
             

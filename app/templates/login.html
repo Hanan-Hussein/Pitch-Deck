@@ -40,11 +40,11 @@
                 {{form.submit(class='btn btn-outline')}}
             </div>
             <small class="text-muted ml-2 ">
-                <a href="#">Forgot password ? </a>
+                <a href="{{url_for('users.forgot_password')}}">Forgot password ? </a>
             </small>
         </form>
         <div class="text-muted ">
-            <small>Need an account ? <a href="{{url_for('register')}}">Sign Up</a></small>
+            <small>Need an account ? <a href="{{url_for('users.register')}}">Sign Up</a></small>
         </div>
     </div>
 </div>

@@ -1,0 +1,52 @@
+.nav-page {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+*
+{
+    overflow-x: hidden;
+}
+.form-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.f-img{
+    height: 50vh
+}
+.alert{
+    background-color: #E2B26E!important;
+    color: #fff!important;
+    border: none!important;
+}
+.btn{
+    background-color: #064663 !important;
+    box-shadow: none;
+    background-color: transparent;
+    height: 3rem;
+    width: 15rem;
+    box-shadow: none;
+    outline: none;
+    color: #fff!important;
+}
+.form-control:focus,.form-check-input:focus {
+    box-shadow: none;
+    outline: none;
+  }
+
+.pitches{
+    width:40vw;
+    height: max-content;
+    background: #FFFFFF;
+    box-shadow: 0 .5rem 1rem rgba(6, 70, 99, 0.18)!important;
+    border: none !important;
+}
+
+.btn:hover:active:focus {
+    box-shadow: none;
+}
+.round{
+    height:10vh !important;
+}

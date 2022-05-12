@@ -1,22 +1,95 @@
 {% extends 'layout.html' %}
 {% block body %}
 {% from 'bootstrap5/form.html' import render_form %}
-<div class="container h-50">
-    <div class="container-fluid row p-5">
-        <div class="col-md-4">
-            <img src="{{image_file}}"  class="img-thumbnail img-fluid border border-white" alt="Profile picture" >
+<div class="container">
+<div class="row">
+    <div class="col-md-6">
+        <div class="container-fluid row p-5">
+            <div class="col-md-4">
+                <img src="{{image_file}}"  class="img-thumbnail img-fluid border border-white" alt="Profile picture" >
+            </div>
+            <div class="col-md-8 mx-auto mt-auto mb-auto  lead">
+                <p>Username--: {{ current_user.username.title() }}</p>
+                
+                <p>Email-------: {{ current_user.email }}</p>
+               
+                <a data-bs-toggle="collapse" href="#coll" class="text-decoration-none text-muted" >Update Info</a>
+    
+            </div>
         </div>
-        <div class="col-md-8 mx-auto mt-auto mb-auto  lead">
-            <p>Username--: {{ current_user.username.title() }}</p>
-            
-            <p>Email-------: {{ current_user.email }}</p>
-           
-            <a data-bs-toggle="collapse" href="#coll" class="text-decoration-none text-muted" >Update Info</a>
+        <div class="container-fluid collapse" id="coll">
+            {{render_form(form)}}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <p class="display-6 text-center">
+            My Posts
+        </p>
+        <div class="container-fluid d-flex flex-wrap flex-row justify-content-center">
+            {% for pitch in pitch %}
+                <div class=" pitches card  m-4">
+                  
+                      <div class="row  p-2">
+                          <div class="col-md-7 mx-auto mt-auto mb-auto">
+                            {% if current_user.id == pitch.author.id %}
+                            <div class="d-inline mx-3">
+                              <a href="{{url_for('posts.post_delete',pitchid=pitch.id)}}"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                                <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                              </svg></a>
+                            <a href="{{url_for('posts.post_edit',postid=pitch.id)}}"> <svg  xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                              </svg>
+                            </a> 
+                             </div>
+                            {% endif %}
+                          
+                           <p class="d-inline">{{pitch.category}}</p>
+                          </div>
+                        <div class="col-md-2">
+                            <img src="{{url_for('static', filename='/profiles/'+pitch.author.profile)}}" class="img-thumbnail img-fluid border border-white" alt="Profile picture" >
+                        </div>
+                        <div class="col-md-3 mx-auto mt-auto mb-auto text-muted">
+                            <small>{{pitch.author.username}}</small>
+                            <br>
+                            <small>{{pitch.date_created}}</small>
+                        </div>
+                      </div>
+                    <div class="card-body">
+                      <h5 class="card-title">{{pitch.title}}</h5>
+                      <p class="card-text lead">{{pitch.content}}</p>
+                      <div class="d-flex justify-content-around">
+                        <a href="{{url_for('posts.likes',pitchid=pitch.id)}}"><img src="{{url_for('static',filename='/assets/like.svg')}}" alt=""></a>{{pitch.likes}}
+                        <a href="{{url_for('posts.dislikes',pitchid=pitch.id)}}"><img src="{{url_for('static',filename='/assets/unlike.svg')}}"  alt=""></a>{{pitch.dislikes}}
+                        <a  data-bs-toggle="collapse" href="#comments{{pitch.id}}" class="lead text-decoration-none">
+                          <img src="{{url_for('static',filename='/assets/comment.svg')}}" height="30" alt=""> 
+                        </a>
+                      </div>
+                      <div class="collapse" id="comments{{pitch.id}}">
+                    {% if pitch.comments %}
+                    <div class=" comments my-3">
+                      <p>Comments</p>
+                      {% for comment in  pitch.comments.split('~') %}
+                        <div class="card m-1">
+                          <p class="lead">
+                            {{comment}}
+                          </p>
+                        </div>
+                      {% endfor %}
+                    </div>
+                    {% endif %}
+                  <a href="{{url_for('posts.comments',id=pitch.id)}}">ADD</a>
+                        </div>
+                      </div>
+                    
+                  </div>
+                
+              {% endfor %}
+               
+        </div>
+</div>
 
-        </div>
-    </div>
-    <div class="container-fluid collapse h-25" id="coll">
-        {{render_form(form)}}
-    </div>
+
+</div>
 </div>
 {%endblock%}

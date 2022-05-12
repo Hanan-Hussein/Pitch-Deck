@@ -1,39 +1,39 @@
      
         <div class="container-fluid">
-          <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="{{url_for('home')}}">Pitch Deck</a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse justify-content-evenly " id="navbarNav">
-                <ul class="navbar-nav">
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{url_for('home')}}">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active" href="{{url_for('home')}}">About</a>
-                  </li>
-                  {% if current_user.is_authenticated %}
-                  <a class="nav-link active" href="{{url_for('account')}}">Account</a>
-                  <a class="nav-link active" href="{{url_for('logout')}}">Logout</a>
-                  {%else%}
-                  {%if request.url_rule.endpoint != 'register' %}
-                  <li class="nav-item">
-                    <a class="nav-link active" href="{{url_for('register')}}">Register</a>
-                  </li>
-                  {% endif %}
-                  {%if request.url_rule.endpoint != 'login'%}
-                  <li class="nav-item">
-                    <a class="nav-link active" href="{{url_for('login')}}">Login</a>
-                  </li>
-                  {%endif%}
-                
-                  {% endif %}
-                </ul>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+              <div class="container-fluid">
+                <a class="navbar-brand" href="{{url_for('main.home')}}">Pitch Deck</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                  aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-evenly " id="navbarNav">
+                  <ul class="navbar-nav">
+                    <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="{{url_for('main.home')}}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link active" href="{{url_for('main.home')}}">About</a>
+                    </li>
+                    {% if current_user.is_authenticated %}
+                    <a class="nav-link active" href="{{url_for('users.account')}}">Account</a>
+                    <a class="nav-link active" href="{{url_for('users.logout')}}">Logout</a>
+                    {%else%}
+                    {%if request.url_rule.endpoint != 'register' %}
+                    <li class="nav-item">
+                      <a class="nav-link active" href="{{url_for('users.register')}}">Register</a>
+                    </li>
+                    {% endif %}
+                    {%if request.url_rule.endpoint != 'login'%}
+                    <li class="nav-item">
+                      <a class="nav-link active" href="{{url_for('users.login')}}">Login</a>
+                    </li>
+                    {%endif%}
+                  
+                    {% endif %}
+                  </ul>
+                </div>
               </div>
-            </div>
-          </nav>
-      </div>
-   
+            </nav>
+        </div>
+     
